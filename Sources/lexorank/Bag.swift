@@ -9,9 +9,12 @@ public struct Bag<T: Identifiable> {
         }
     }
 
-    public mutating func append(_ item: T) {
+    @discardableResult
+    public mutating func append(_ item: T) -> Rank {
         let rank = next()
         items[item.id] = (rank: rank, item: item)
+
+        return rank
     }
 
     func next() -> Rank {
@@ -60,10 +63,6 @@ extension Bag {
         for (rank, item) in sequence {
             items[item.id] = (rank, item)
         }
-    }
-
-    public var all: [(rank: Rank, item: T)] {
-        items.values.sorted(by: \.rank)
     }
 }
 

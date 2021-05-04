@@ -47,11 +47,23 @@ public struct Bag<T: Identifiable> {
     }
 
     public var values: [T] {
-        items.sorted(by: \.value.rank).map(\.value.item)
+        items.values.sorted(by: \.rank).map(\.item)
     }
 
     var ranks: [Rank] {
-        items.sorted(by: \.value.rank).map(\.value.rank)
+        items.values.sorted(by: \.rank).map(\.rank)
+    }
+}
+
+extension Bag {
+    public init<S: Sequence>(_ sequence: S) where S.Element == (rank: Rank, item: T) {
+        for (rank, item) in sequence {
+            items[item.id] = (rank, item)
+        }
+    }
+
+    public var all: [(rank: Rank, item: T)] {
+        items.values.sorted(by: \.rank)
     }
 }
 

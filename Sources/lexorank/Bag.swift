@@ -64,6 +64,10 @@ public struct Bag<T: Identifiable> {
         return Rank((after.rank + before.rank) / 2)
     }
 
+    public var count: Int {
+        items.count
+    }
+
     public var values: [T] {
         items.values.sorted(by: \.rank).map(\.item)
     }

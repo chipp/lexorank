@@ -68,11 +68,11 @@ final class lexorankTests: XCTestCase {
     func testPutBefore() {
         var bag: Bag = [t1, t2, t3, t4, t5]
 
-        bag.put(t1, before: t5)
+        XCTAssertEqual(bag.put(t1, before: t5), "t4")
         XCTAssertEqual(bag.values, [t2, t3, t4, t1, t5])
         XCTAssertEqual(bag.ranks, ["cy", "jf", "pw", "t4", "wd"])
 
-        bag.put(t5, before: t2)
+        XCTAssertEqual(bag.put(t5, before: t2), "6h")
         XCTAssertEqual(bag.values, [t5, t2, t3, t4, t1])
         XCTAssertEqual(bag.ranks, ["6h", "cy", "jf", "pw", "t4"])
     }
@@ -80,11 +80,11 @@ final class lexorankTests: XCTestCase {
     func testPutAfter() {
         var bag: Bag = [t1, t2, t3, t4, t5]
 
-        bag.put(t1, after: t4)
+        XCTAssertEqual(bag.put(t1, after: t4), "t4")
         XCTAssertEqual(bag.values, [t2, t3, t4, t1, t5])
         XCTAssertEqual(bag.ranks, ["cy", "jf", "pw", "t4", "wd"])
 
-        bag.put(t2, after: t5)
+        XCTAssertEqual(bag.put(t2, after: t5), "12u")
         XCTAssertEqual(bag.values, [t3, t4, t1, t5, t2])
         XCTAssertEqual(bag.ranks, ["jf", "pw", "t4", "wd", "12u"])
     }
@@ -109,8 +109,8 @@ final class lexorankTests: XCTestCase {
 
     func testInsertAt() {
         var bag: Bag = [t1, t2, t4, t5]
-        bag.insert(t3, at: 2)
 
+        XCTAssertEqual(bag.insert(t3, at: 2), "g6")
         XCTAssertEqual(bag.values, [t1, t2, t3, t4, t5])
         XCTAssertEqual(bag.ranks, ["6h", "cy", "g6", "jf", "pw"])
     }

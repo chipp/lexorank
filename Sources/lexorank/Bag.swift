@@ -21,7 +21,8 @@ public struct Bag<T: Identifiable> {
         items.removeValue(forKey: item.id)
     }
 
-    public mutating func insert(_ item: T, at index: Int) {
+    @discardableResult
+    public mutating func insert(_ item: T, at index: Int) -> Rank {
         put(item, before: values[index])
     }
 
@@ -30,18 +31,24 @@ public struct Bag<T: Identifiable> {
         return Rank((last / Rank.step + 1) * Rank.step)
     }
 
-    public mutating func put(_ item: T, before: T) {
+    @discardableResult
+    public mutating func put(_ item: T, before: T) -> Rank {
         let before = items[before.id]!.rank
         let after = rank(before: before)
         let rank = self.rank(between: (after, before))
         items[item.id] = (rank: rank, item: item)
+
+        return rank
     }
 
-    public mutating func put(_ item: T, after: T) {
+    @discardableResult
+    public mutating func put(_ item: T, after: T) -> Rank {
         let after = items[after.id]!.rank
         let before = rank(after: after)
         let rank = before.map { before in self.rank(between: (after, before)) } ?? next()
         items[item.id] = (rank: rank, item: item)
+
+        return rank
     }
 
     func rank(before: Rank) -> Rank {

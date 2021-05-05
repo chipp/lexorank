@@ -17,6 +17,14 @@ public struct Bag<T: Identifiable> {
         return rank
     }
 
+    public mutating func remove(_ item: T) {
+        items.removeValue(forKey: item.id)
+    }
+
+    public mutating func insert(_ item: T, at index: Int) {
+        put(item, before: values[index])
+    }
+
     func next() -> Rank {
         let last = ranks.last?.rank ?? 0
         return Rank((last / Rank.step + 1) * Rank.step)

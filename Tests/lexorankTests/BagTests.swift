@@ -88,4 +88,30 @@ final class lexorankTests: XCTestCase {
         XCTAssertEqual(bag.values, [t3, t4, t1, t5, t2])
         XCTAssertEqual(bag.ranks, ["jf", "pw", "t4", "wd", "12u"])
     }
+
+    func testAppend() {
+        var bag: Bag = [t1, t2, t3, t4, t5]
+        let t6 = Task(title: "6")
+
+        bag.append(t6)
+
+        XCTAssertEqual(bag.values, [t1, t2, t3, t4, t5, t6])
+        XCTAssertEqual(bag.ranks, ["6h", "cy", "jf", "pw", "wd", "12u"])
+    }
+
+    func testRemove() {
+        var bag: Bag = [t1, t2, t3, t4, t5]
+        bag.remove(t3)
+
+        XCTAssertEqual(bag.values, [t1, t2, t4, t5])
+        XCTAssertEqual(bag.ranks, ["6h", "cy", "pw", "wd"])
+    }
+
+    func testInsertAt() {
+        var bag: Bag = [t1, t2, t4, t5]
+        bag.insert(t3, at: 2)
+
+        XCTAssertEqual(bag.values, [t1, t2, t3, t4, t5])
+        XCTAssertEqual(bag.ranks, ["6h", "cy", "g6", "jf", "pw"])
+    }
 }

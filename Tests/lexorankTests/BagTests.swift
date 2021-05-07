@@ -114,4 +114,12 @@ final class lexorankTests: XCTestCase {
         XCTAssertEqual(bag.values, [t1, t2, t3, t4, t5])
         XCTAssertEqual(bag.ranks, ["6h", "cy", "g6", "jf", "pw"])
     }
+
+    func testInsertAtEnd() {
+        var bag: Bag = [t1, t2, t3, t4]
+        bag.insert(t5, at: 4)
+
+        XCTAssertEqual(bag.values, [t1, t2, t3, t4, t5])
+        XCTAssertEqual(bag.ranks, ["6h", "cy", "jf", "pw", "wd"])
+    }
 }

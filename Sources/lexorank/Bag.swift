@@ -23,7 +23,11 @@ public struct Bag<T: Identifiable> {
 
     @discardableResult
     public mutating func insert(_ item: T, at index: Int) -> Rank {
-        put(item, before: values[index])
+        if index == count {
+            return append(item)
+        } else {
+            return put(item, before: values[index])
+        }
     }
 
     func next() -> Rank {

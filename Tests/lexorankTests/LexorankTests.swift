@@ -33,6 +33,14 @@ final class LexorankTests: XCTestCase {
         XCTAssertEqual(bag.ranks, ["6h", "cy", "pw", "wd"])
     }
 
+    func testRemoveAt() {
+        var bag: Lexorank = ["6h", "cy", "jf", "pw", "wd"]
+        bag.remove(at: 2)
+        bag.remove(at: 1)
+
+        XCTAssertEqual(bag.ranks, ["6h", "pw", "wd"])
+    }
+
     func testInsertAt() {
         var bag: Lexorank = ["6h", "cy", "jf", "pw"]
 

@@ -15,6 +15,10 @@ public struct Lexorank {
         ranks.remove(rank)
     }
 
+    public mutating func remove(at index: Int) {
+        ranks.remove(ranks.sorted()[index])
+    }
+
     @discardableResult
     public mutating func insertRank(at index: Int) -> Rank {
         switch index {

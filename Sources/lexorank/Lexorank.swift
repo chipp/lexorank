@@ -25,7 +25,7 @@ public struct Lexorank {
         case ranks.count:
             return newRank()
         case 0:
-            let rank = self.rank(between: (0, ranks.sorted()[0]))
+            let rank = self.rank(between: (.start, ranks.sorted()[0]))
             ranks.insert(rank)
             return rank
         case let index:
@@ -38,13 +38,13 @@ public struct Lexorank {
     }
 
     func next() -> Rank {
-        let last = ranks.sorted().last?.rank ?? 0
-        return Rank(integerLiteral: (last / Rank.step + 1) * Rank.step)
+        let last = ranks.sorted().last?.rank ?? Rank.startInt
+        return Rank(last + 1)
     }
 
     func rank(between ranks: (Rank, Rank)) -> Rank {
         let (after, before) = ranks
-        return Rank(integerLiteral: (after.rank + before.rank) / 2)
+        return mid(after, before)
     }
 }
 

@@ -1,12 +1,13 @@
 import Foundation
+import OrderedCollections
 
 public struct Lexorank {
-    var ranks: Set<Rank> = []
+    var ranks: OrderedSet<Rank> = []
 
     @discardableResult
     public mutating func newRank() -> Rank {
         let rank = next()
-        ranks.insert(rank)
+        ranks.append(rank)
 
         return rank
     }
@@ -16,7 +17,7 @@ public struct Lexorank {
     }
 
     public mutating func remove(at index: Int) {
-        ranks.remove(ranks.sorted()[index])
+        ranks.remove(ranks[index])
     }
 
     @discardableResult
@@ -25,20 +26,22 @@ public struct Lexorank {
         case ranks.count:
             return newRank()
         case 0:
-            let rank = self.rank(between: (.start, ranks.sorted()[0]))
-            ranks.insert(rank)
+            let rank = self.rank(between: (.start, ranks[0]))
+            ranks.insert(rank, at: index)
             return rank
         case let index:
-            let sorted = ranks.sorted()
-            
-            let rank = self.rank(between: (sorted[index - 1], sorted[index]))
-            ranks.insert(rank)
+            let rank = self.rank(between: (ranks[index - 1], ranks[index]))
+            ranks.insert(rank, at: index)
             return rank
         }
     }
 
+    public subscript(index: Int) -> Rank {
+        ranks[index]
+    }
+
     func next() -> Rank {
-        let last = ranks.sorted().last?.rank ?? Rank.startInt
+        let last = ranks.last?.rank ?? Rank.startInt
         return Rank(last + 1)
     }
 
@@ -50,7 +53,7 @@ public struct Lexorank {
 
 extension Lexorank {
     public init<S: Sequence>(_ sequence: S) where S.Element == Rank {
-        self.ranks = Set(sequence)
+        self.ranks = OrderedSet(sequence)
     }
 }
 
